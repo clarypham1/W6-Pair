@@ -23,6 +23,8 @@ const userSchema = mongoose.Schema(
   }
 );
 
+
+
 // static signup method
 userSchema.statics.signup = async function (name, email, password) {
   // validation
