@@ -115,3 +115,4 @@ describe("Given there are initially some tours saved", () => {
 afterAll(() => {
   mongoose.connection.close();
 });
+

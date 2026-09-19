@@ -412,3 +412,4 @@ describe('Given the application has full authentication and user expansion', () 
     });
   });
 });
+

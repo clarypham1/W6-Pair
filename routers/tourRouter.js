@@ -16,3 +16,4 @@ router.put("/:tourId", updateTour);
 router.delete("/:tourId", deleteTour);
 
 module.exports = router;
+

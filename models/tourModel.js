@@ -25,3 +25,4 @@ const tourSchema = new Schema(
 );
 
 module.exports = mongoose.model("Tour", tourSchema);
+

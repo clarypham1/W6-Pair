@@ -267,3 +267,4 @@ describe('Given a user wants to expand their profile with additional information
     });
   });
 });
+
