@@ -17,18 +17,34 @@ const userSchema = mongoose.Schema(
       type: String,
       required: [true, "Please add a password"],
     },
+    phone_number: {
+      type: String,
+      required: true,
+      match: /^\d{10,}$/ 
+    },
+    gender: {
+      type: String,
+      required: true,
+      enum: ["Male", "Female", "Other"]
+    },
+    date_of_birth: { type: Date, required: true },
+    membership_status: {
+      type: String,
+      required: true,
+      enum: ["Active", "Inactive", "Suspended"]
+    },
+  
+  
   },
-  {
-    timestamps: true,
-  }
+  {timestamps: true }
 );
 
 
 
 // static signup method
-userSchema.statics.signup = async function (name, email, password) {
+userSchema.statics.signup = async function (name, email, password, phone_number, gender, date_of_birth, membership_status) {
   // validation
-  if ((!name, !email || !password)) {
+  if ((!name, !email || !password || !phone_number || !gender || !date_of_birth || !membership_status)) {
     throw Error("Please add all fields");
   }
   if (!validator.isEmail(email)) {
@@ -37,7 +53,18 @@ userSchema.statics.signup = async function (name, email, password) {
   if (!validator.isStrongPassword(password)) {
     throw Error("Password not strong enough");
   }
-
+  if (!validator.isMobilePhone(phone_number)) {
+    throw Error("Phone number not valid");
+  }
+  if (!["Male", "Female", "Other"].includes(gender)) {
+    throw Error("gender not valid"); 
+  }
+  if (!validator.isDate(date_of_birth)) {
+    throw Error("DOB not valid");
+  }
+  if (!["Active", "Inactive", "Suspended"].includes(membership_status)) {
+    throw Error("Membership not valid"); 
+  }
   const userExists = await this.findOne({ email });
 
   if (userExists) {
@@ -51,6 +78,10 @@ userSchema.statics.signup = async function (name, email, password) {
     name,
     email,
     password: hashedPassword,
+    phone_number,
+    gender,
+    date_of_birth,
+    membership_status,
   });
 
   return user;

@@ -12,10 +12,10 @@ const generateToken = (_id) => {
 // @route   POST /api/users/signup
 // @access  Public
 const signupUser = async (req, res) => {
-  const { name, email, password } = req.body;
+  const { name, email, password, phone_number, gender, date_of_birth, membership_status } = req.body;
 
   try {
-    const user = await User.signup(name, email, password);
+    const user = await User.signup(name, email, password, phone_number, gender, date_of_birth, membership_status);
 
     // create a token
     const token = generateToken(user._id);
@@ -30,9 +30,9 @@ const signupUser = async (req, res) => {
 // @route   POST /api/users/login
 // @access  Public
 const loginUser = async (req, res) => {
-  const { email, password } = req.body;
+  const { email, password, phone_number, gender, date_of_birth, membership_status } = req.body;
   try {
-    const user = await User.login(email, password);
+    const user = await User.login(email, password, phone_number, gender, date_of_birth, membership_status);
 
     if (user) {
       // create a token
